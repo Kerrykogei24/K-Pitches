@@ -65,3 +65,56 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form = form)
+
+@main.route('/pitch/new', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    pitch_form = PitchForm()
+    if pitch_form.validate_on_submit():
+        title = pitch_form.title.data
+        pitch = pitch_form.text.data
+        category = pitch_form.category.data
+
+        # Updated pitch instance
+        new_pitch = Pitch(pitch_title=title,pitch_content=pitch,category=category,user=current_user,likes=0,dislikes=0)
+
+        # Save pitch method
+        new_pitch.save_pitch()
+        return redirect(url_for('.index'))
+
+        title = 'New pitch'
+        return render_template('new_pitch.html',title = title,pitch_form=pitch_form )
+
+    @main.route('/pitch/<int:id>', methods = ['GET','POST'])
+def pitch(id):
+    pitch = Pitch.get_pitch(id)
+    posted_date = pitch.posted.strftime('%b %d, %Y')
+
+    if request.args.get("like"):
+        pitch.likes = pitch.likes + 1
+
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}".format(pitch_id=pitch.id))
+
+    elif request.args.get("dislike"):
+        pitch.dislikes = pitch.dislikes + 1
+
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}".format(pitch_id=pitch.id))
+
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        comment = comment_form.text.data
+
+        new_comment = Comment(comment = comment,user = current_user,pitch_id = pitch)
+
+        new_comment.save_comment()
+
+
+    comments = Comment.get_comments(pitch)
+
+    return render_template("pitch.html", pitch = pitch, comment_form = comment_form, comments = comments, date = posted_date)
