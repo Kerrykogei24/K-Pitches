@@ -85,7 +85,7 @@ def new_pitch():
         title = 'New pitch'
         return render_template('new_pitch.html',title = title,pitch_form=pitch_form )
 
-    @main.route('/pitch/<int:id>', methods = ['GET','POST'])
+@main.route('/pitch/<int:id>', methods = ['GET','POST'])
 def pitch(id):
     pitch = Pitch.get_pitch(id)
     posted_date = pitch.posted.strftime('%b %d, %Y')
