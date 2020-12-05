@@ -1,6 +1,5 @@
 from . import db
 from flask_login import UserMixin
-from . import login_manager
 from datetime import datetime
 
 
@@ -58,7 +57,7 @@ class Pitch(db.Model):
         pitches = Pitch.query.filter_by(category=category).all()
         return pitches
 
-     @classmethod
+    @classmethod
     def get_pitch(cls,id):
         pitch = Pitch.query.filter_by(id=id).first()
 
@@ -77,18 +76,18 @@ class Pitch(db.Model):
 
 class Comment(db.Model):
 
-        __tablename__ = 'comments'
-        id = db.Column(db.Integer,primary_key = True)
-        comment = db.Column(db.String(500))
-        user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-        pitch = db.Column(db.Integer,db.ForeignKey("pitches.id"))
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String(500))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    pitch = db.Column(db.Integer,db.ForeignKey("pitches.id"))
 
-        def save_comment(self):
+    def save_comment(self):
         db.session.add(self)
         db.session.commit()
 
-         @classmethod
-        def get_comments(cls,pitch):
+    @classmethod
+    def get_comments(cls,pitch):
         comments = Comment.query.filter_by(pitch_id=pitch).all()
         return comments
 
