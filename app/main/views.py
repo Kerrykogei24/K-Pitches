@@ -8,7 +8,7 @@ import datetime
 import markdown2
 
 
-#views
+ #Views
 @main.route('/')
 def index():
 
@@ -16,16 +16,15 @@ def index():
     View root page function that returns the index page and its data
     '''
 
-# Getting reviews by category
+    title = 'Home - Welcome to Perfect Pitch'
+
+    # Getting reviews by category
     interview_piches = Pitch.get_pitches('interview')
     product_piches = Pitch.get_pitches('product')
     promotion_pitches = Pitch.get_pitches('promotion')
 
 
-    title = 'Home - Welcome to The best Pitches Review Website Online'
-
-    return render_template ('index.html', title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
-
+    return render_template('index.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -37,17 +36,6 @@ def profile(uname):
         abort(404)
 
     return render_template("profile/profile.html", user = user,pitches = pitches_count,date = user_joined)
-
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
-@login_required
-def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
@@ -68,6 +56,17 @@ def update_profile(uname):
 
     return render_template('profile/update.html',form = form)
 
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
+
 @main.route('/pitch/new', methods = ['GET','POST'])
 @login_required
 def new_pitch():
@@ -84,8 +83,29 @@ def new_pitch():
         new_pitch.save_pitch()
         return redirect(url_for('.index'))
 
-        title = 'New pitch'
-        return render_template('new_pitch.html',title = title,pitch_form=pitch_form )
+    title = 'New pitch'
+    return render_template('new_pitch.html',title = title,pitch_form=pitch_form )
+
+@main.route('/pitches/interview_pitches')
+def interview_pitches():
+
+    pitches = Pitch.get_pitches('interview')
+
+    return render_template("interview_pitches.html", pitches = pitches)
+
+@main.route('/pitches/product_pitches')
+def product_pitches():
+
+    pitches = Pitch.get_pitches('product')
+
+    return render_template("product_pitches.html", pitches = pitches)
+
+@main.route('/pitches/promotion_pitches')
+def promotion_pitches():
+
+    pitches = Pitch.get_pitches('promotion')
+
+    return render_template("promotion_pitches.html", pitches = pitches)
 
 @main.route('/pitch/<int:id>', methods = ['GET','POST'])
 def pitch(id):
@@ -118,7 +138,7 @@ def pitch(id):
 
 
     comments = Comment.get_comments(pitch)
-    format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
+
     return render_template("pitch.html", pitch = pitch, comment_form = comment_form, comments = comments, date = posted_date)
 
 @main.route('/user/<uname>/pitches')
@@ -129,26 +149,3 @@ def user_pitches(uname):
     user_joined = user.date_joined.strftime('%b %d, %Y')
 
     return render_template("profile/pitches.html", user=user,pitches=pitches,pitches_count=pitches_count,date = user_joined)
-
-
-@main.route('/pitches/interview_pitches')
-def interview_pitches():
-
-    pitches = Pitch.get_pitches('interview')
-
-    return render_template("interview_pitches.html", pitches = pitches)
-
-@main.route('/pitches/product_pitches')
-def product_pitches():
-
-    pitches = Pitch.get_pitches('product')
-
-    return render_template("product_pitches.html", pitches = pitches)
-
-
-@main.route('/pitches/promotion_pitches')
-def promotion_pitches():
-
-    pitches = Pitch.get_pitches('promotion')
-
-    return render_template("promotion_pitches.html", pitches = pitches)
