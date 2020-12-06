@@ -5,6 +5,7 @@ from . import main
 from ..models import User,Pitch,Comment
 from .. import db,photos
 import datetime
+import markdown2
 
 
 #views
@@ -117,7 +118,7 @@ def pitch(id):
 
 
     comments = Comment.get_comments(pitch)
-
+    format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
     return render_template("pitch.html", pitch = pitch, comment_form = comment_form, comments = comments, date = posted_date)
 
 @main.route('/user/<uname>/pitches')
