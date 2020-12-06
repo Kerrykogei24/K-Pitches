@@ -6,6 +6,7 @@ from ..models import User,Pitch,Comment
 from .. import db,photos
 import datetime
 
+
 #views
 @main.route('/')
 def index():
