@@ -2,8 +2,7 @@
 ## By Kerry Kogei 
 
 ## Description
-Are you looking for a Picth of the week to brighten up your day and your week? Here you can find a list of positive quotes to help you get through a tough week!
-# Live Demo
+Are you looking for a Picth of the week to brighten up your day and your week? Here you can find a list of positive quotes to help you get through a tough week!    
 
 
 ## User Story
@@ -30,6 +29,14 @@ Are you looking for a Picth of the week to brighten up your day and your week? H
 
         $ chmod +x start.sh
         $ ./start.sh
+
+## Behaviour Driven Development
+| Behavior            | Input                         | Output                        | 
+| ------------------- | ----------------------------- | ----------------------------- |
+| View Product Pitches | Click on any category | Taken to the clicked category | Click on `Click    submit To Post A Pitch` | Redirected to the login page | Signs In/ Signs Up |
+| Click on `Click create a new To Post A Pitch` | If logged in, display form to add a pitch | Redirected to the home page |
+| Click upvote/ downvote button | Redirects to home page | Upvote/ downvote count changes | Click add comment button | Redirects to the comment page | Displays a comment form | Click on Sign Out | Redirects to the home page | Signs user out |
+| Click on profile | Redirects to the profile page | User adds bio and profile picture |
 
 ## Technology used
 
