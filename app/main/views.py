@@ -108,6 +108,7 @@ def promotion_pitches():
     return render_template("promotion_pitches.html", pitches = pitches)
 
 @main.route('/pitch/<int:id>', methods = ['GET','POST'])
+@login_required
 def pitch(id):
     pitch = Pitch.get_pitch(id)
     posted_date = pitch.posted.strftime('%b %d, %Y')
