@@ -1,46 +1,60 @@
 {% extends 'base.html' %} {% import 'macros.html' as macro %} {%block content%}
 <div class=back>
     <div class=" text-center ">
-        <h1 class="head"><strong>Welcome to the Best pitch</strong></h1>
+        <h3>WELCOME TO K_PITCHES</h3>
+        <hr>
     </div>
     <hr>
     <br><br>
-    <div class="container" style="background-color: rgba(rgb(15, 16, 32), green, blue, alpha);">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="well well-lg" style="text-align: center;">
-                    <h3>Interviews Pitches</h3>
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-4 ">
+                <div class="well well-lg " style="text-align: center; ">
+                    <h3>ENTERTAINMENT Pitches</h3>
                     <hr>
                     <p>The greatest thing in this world is not so much where we stand, as in what direction we are moving </p>
-                    <a href="{{url_for('main.interview_pitches')}}" class="btn btn-info btn-center -center">Click to
+                    <a href="{{url_for( 'main.interview_pitches')}} " class="btn btn-info btn-center -center ">Click to
                         view</a>
                 </div>
-                <div class="well well-lg" style="text-align: center;">
-                    <h3>Products Pitches</h3>
+            </div>
+            <div class="col-md-4 ">
+                <div class="well well-lg " style="text-align: center; ">
+                    <h3>MOTIVATIONAL Pitches</h3>
                     <hr>
-                    <p>"What differentiates sellers today is their ability to bring fresh ideas." </p>
-                    <a href="{{url_for('main.product_pitches')}}" class="btn btn-info -center">Click to view</a>
+                    <p>"What differentiates sellers today is their ability to bring fresh ideas. " </p>
+                    <a href="{{url_for( 'main.product_pitches')}} " class="btn btn-info -center ">Click to view</a>
                 </div>
-
-
-                <div class="well well-lg" style="text-align: center;">
-                    <h3>Promotion Pitches</h3>
+            </div>
+            <div class="col-md-4 ">
+                <div class="well well-lg " style="text-align: center; ">
+                    <h3>LOVE Pitches</h3>
                     <hr>
-                    <p>"Failure will never overtake me if my determination to succeed is strong enough." </p>
-                    <a href="{{url_for('main.promotion_pitches')}}" class="btn btn-info -center">Click to view</a>
+                    <p>"Failure will never overtake me if my determination to succeed is strong enough. " </p>
+                    <a href="{{url_for( 'main.promotion_pitches')}} " class="btn btn-info -center ">Click to view</a>
                 </div>
             </div>
 
-            <div class="col-md-6">
 
-                <img src="app/static/inspirational-quotes-1.jpg" alt="img">
-            </div>
         </div>
     </div>
-    <div style="padding-bottom: 20px; text-align: center;">
 
-    </div>
 </div>
-
+<style>
+    body {
+        background-image: url('https://www.hdwallback.net/wp-content/uploads/2015/06/desktop-backgrounds-quotes-tumblr.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .container {
+        margin-top: 200px;
+    }
+    
+    .well-lg {
+        background-color: rgba(rgb(15, 16, 32), green, blue, alpha);
+    }
+</style>
 
 {%endblock%}

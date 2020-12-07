@@ -9,29 +9,41 @@
 
         <div class="col-md-8">
             <div class="container card-body">
+                <div class="jumbotron" style="text-align: center;">
 
-                <h3>{{pitch.pitch_title}}</h3>
-                <hr style="width:100%; color: black; height:1px;">
-                <div class="container">
-                    <p>{{pitch.pitch_content}}</p>
+                    <h3>{{pitch.pitch_title}}</h3>
+                    <hr style="width:100%; color: black; height:1px;">
+                    <div class="container">
+                        <p>{{pitch.pitch_content}}</p>
 
-                    <p>Posted on {{date}} by {{pitch.user.username| capitalize}}</p>
-                    <a href="/pitch/{{pitch.id}}?like=1">
-                        <i class="far fa-thumbs-up"></i>
-                    </a>{{pitch.likes}}
-                    <a href="/pitch/{{pitch.id}}?dislike=1">
-                        <i class="far fa-thumbs-down"></i>
-                    </a>{{pitch.dislikes}}
+                        <p>Posted on {{date}} by {{pitch.user.username| capitalize}}</p>
+                        <a href="/pitch/{{pitch.id}}?like=1">
+                            <i class="far fa-thumbs-up"></i>
+                        </a>{{pitch.likes}}
+                        <a href="/pitch/{{pitch.id}}?dislike=1">
+                            <i class="far fa-thumbs-down"></i>
+                        </a>{{pitch.dislikes}}
+                    </div>
+
+
+                    <hr>
+
+                    <hr> {% if current_user.is_authenticated %} {{ wtf.quick_form(comment_form) }} {%endif%} {{macro.displayComments(comments)}}
+
                 </div>
-
-
-                <hr>
-
-                <hr> {% if current_user.is_authenticated %} {{ wtf.quick_form(comment_form) }} {%endif%} {{macro.displayComments(comments)}}
-
             </div>
         </div>
 
     </div>
 </div>
+<style>
+    body {
+        background-image: url('https://www.hdwallback.net/wp-content/uploads/2015/06/desktop-backgrounds-quotes-tumblr.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+    }
+</style>
+
 {%endblock%}
