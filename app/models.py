@@ -17,7 +17,7 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     date_joined = db.Column(db.DateTime,default=datetime.utcnow)
     pitches = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
-
+    phone = db.Column(db.String(1000))
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
 
 
@@ -72,6 +72,7 @@ class Pitch(db.Model):
         user = User.query.filter_by(username=uname).first()
         pitches = Pitch.query.filter_by(user_id=user.id).all()
 
+
         pitches_count = 0
         for pitch in pitches:
             pitches_count += 1
@@ -85,7 +86,8 @@ class Comment(db.Model):
     comment = db.Column(db.String(500))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     pitch = db.Column(db.Integer,db.ForeignKey("pitches.id"))
-    phonenumber = db.Column(db.String(500))
+
+  
 
     def save_comment(self):
         db.session.add(self)
