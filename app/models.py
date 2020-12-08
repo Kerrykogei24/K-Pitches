@@ -17,7 +17,6 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     date_joined = db.Column(db.DateTime,default=datetime.utcnow)
     pitches = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
-    phone = db.Column(db.String(1000))
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
 
 
