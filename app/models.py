@@ -48,6 +48,7 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
+    phonenumber = db.Column(db.String(1000))
 
     comments = db.relationship('Comment',backref =  'pitch_id',lazy = "dynamic")
 
